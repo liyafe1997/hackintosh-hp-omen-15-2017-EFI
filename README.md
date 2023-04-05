@@ -1,7 +1,7 @@
 For English user, I am so tired to make it and write this and have no more time and energy to write an English version...So please use translate (E.g. Google Translate) to read it. Thank you!
 
 # 简介
-这可能是全网最完美的HP暗影精灵2 Pro的黑苹果了，理论上HP的Kaby Lake & NVIDIA 10系显卡的游戏本都通用（暗影3好像也是这个配置），什么15-AX218TX/AX214TX，包括17寸的，因为感觉同一家厂商相似产品差别不会太大嘛。
+这可能是全网最完美的HP暗影精灵2 Pro的黑苹果，理论上HP的Kaby Lake & NVIDIA 10系显卡的游戏本都通用（暗影3好像也是这个配置），什么15-AX218TX/AX214TX，包括17寸的，因为感觉同一家厂商相似产品差别不会太大嘛。
 基于Clover 5151版本，使用时可以自己升级到最新版Clover。喜欢使用OpenCore的同学可以自己拿这个配置作为参考转换过去。
 
 # Features
