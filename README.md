@@ -4,27 +4,6 @@ For English user, I am so tired to make it and write this and have no more time 
 这可能是全网最完美的HP暗影精灵2 Pro的黑苹果了，理论上HP的Kaby Lake & NVIDIA 10系显卡的游戏本都通用（暗影3好像也是这个配置），什么15-AX218TX/AX214TX，包括17寸的，因为感觉同一家厂商相似产品差别不会太大嘛。
 基于Clover 5151版本，使用时可以自己升级到最新版Clover。喜欢使用OpenCore的同学可以自己拿这个配置作为参考转换过去。
 
-### 其它事项
-
-目前我使用的是最新版 macOS 13 Ventura，之前用10.15 Catalina，所以理论上Catalina ~ Ventura这之间的版本都能用。更早的理论上应该都没问题。如果你想用Ventura之外的版本，请自行检查外设Kext的兼容性（尤其是Intel WIFI和蓝牙的，尤其是AirportItlwm.kext，它每个版本的macOS有不同的驱动，除了这个之外其它似乎和macOS版本相关性不大）。
-
-FileVault驱动我没加，因为我不用，需要的自己加。
-
-Hfs驱动也没加，现在不都是APFS了嘛。需要的自己加。
-
-里面的序列号啥的是用Clover自动生成的，用的时候请自己再重新生成一个新的，以免和别人撞号。
-
-### 关于睡眠一段时间后自动唤醒的问题
-
-在Catalina时没发生过意外唤醒，但在升级Ventura之后确实会睡眠2~3小时之后自动唤醒。网上查了一通，这个应该是Ventura的Feature，好像跟查找我的Mac有关，跟黑苹果没有关系，因为看到论坛里白果Macbook用户也被这个问题困扰。
-
-可以用 ```pmset -a tcpkeepalive 0``` 禁用掉这个feature。
-
-（上面那个我自己用了一段时间，也没治本，虽然不会两三个小时唤醒，但是久了还是会唤醒，逛了下网上，这个是Ventura的Feature，白苹果也一样，没啥完美的解法，这里有个最全的总结，大概就是macOS Ventura会在进入睡眠时设一些定时器来唤醒，详见：https://www.tonymacx86.com/threads/solved-ventura-random-scheduled-pm-wake-from-sleep.323359/#post-2349229）
-
-### 睡眠后无法通过USB/触摸板/键盘唤醒（只能按电源键唤醒）
-与其说这是个bug，不如说这是个feature。我个人喜欢这样，可以最大限度的避免意外唤醒（特别是不小心碰到一下）。在Windows下我甚至找不到一个完美的永久禁用USB设备唤醒的方法。如果你真的需要通过键盘/鼠标/USB唤醒，自行研究ACPI Patch吧。
-
 # Features
 ## 电源/机器本身功能相关（这也是Tweak的重点）
 
@@ -111,3 +90,25 @@ Hfs驱动也没加，现在不都是APFS了嘛。需要的自己加。
 感觉这台机子可能在WAK之后做了些其它什么事情，就算你在_WAK里把独显OFF了，之后什么机制又把它唤醒起来了。
 
 前几天想到这个问题又翻出来折腾一翻，于是又去挖一下这台机子原生的DSDT及SSDT代码，看看能不能找到什么蛛丝马迹，目的主要是找除了_WAK之外的Hook点，在那个点上把独显OFF掉。于是乎发现了显卡设备下面自己有个_PRW，虽然不知道具体是干啥的，但是看MaciASL给的注释“Power Resources for Wake”，感觉和Wake有关，于是直接在这个里面OFF()，试了下居然成功了！
+
+
+# 其它事项
+
+目前我使用的是最新版 macOS 13 Ventura，之前用10.15 Catalina，所以理论上Catalina ~ Ventura这之间的版本都能用。更早的理论上应该都没问题。如果你想用Ventura之外的版本，请自行检查外设Kext的兼容性（尤其是Intel WIFI和蓝牙的，尤其是AirportItlwm.kext，它每个版本的macOS有不同的驱动，除了这个之外其它似乎和macOS版本相关性不大）。
+
+FileVault驱动我没加，因为我不用，需要的自己加。
+
+Hfs驱动也没加，现在不都是APFS了嘛。需要的自己加。
+
+里面的序列号啥的是用Clover自动生成的，用的时候请自己再重新生成一个新的，以免和别人撞号。
+
+### 关于睡眠一段时间后自动唤醒的问题
+
+在Catalina时没发生过意外唤醒，但在升级Ventura之后确实会睡眠2~3小时之后自动唤醒。网上查了一通，这个应该是Ventura的Feature，好像跟查找我的Mac有关，跟黑苹果没有关系，因为看到论坛里白果Macbook用户也被这个问题困扰。
+
+可以用 ```pmset -a tcpkeepalive 0``` 禁用掉这个feature。
+
+（上面那个我自己用了一段时间，也没治本，虽然不会两三个小时唤醒，但是久了还是会唤醒，逛了下网上，这个是Ventura的Feature，白苹果也一样，没啥完美的解法，这里有个最全的总结，大概就是macOS Ventura会在进入睡眠时设一些定时器来唤醒，详见：https://www.tonymacx86.com/threads/solved-ventura-random-scheduled-pm-wake-from-sleep.323359/#post-2349229）
+
+### 睡眠后无法通过USB/触摸板/键盘唤醒（只能按电源键唤醒）
+与其说这是个bug，不如说这是个feature。我个人喜欢这样，可以最大限度的避免意外唤醒（特别是不小心碰到一下）。在Windows下我甚至找不到一个完美的永久禁用USB设备唤醒的方法。如果你真的需要通过键盘/鼠标/USB唤醒，自行研究ACPI Patch吧。
