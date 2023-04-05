@@ -20,6 +20,11 @@ Hfs驱动也没加，现在不都是APFS了嘛。需要的自己加。
 
 可以用 ```pmset -a tcpkeepalive 0``` 禁用掉这个feature。
 
+（上面那个我自己用了一段时间，也没治本，虽然不会两三个小时唤醒，但是久了还是会唤醒，逛了下网上，这个是Ventura的Feature，白苹果也一样，没啥完美的解法，这里有个最全的总结，大概就是macOS Ventura会在进入睡眠时设一些定时器来唤醒，详见：https://www.tonymacx86.com/threads/solved-ventura-random-scheduled-pm-wake-from-sleep.323359/#post-2349229）
+
+### 睡眠后无法通过USB/触摸板/键盘唤醒（只能按电源键唤醒）
+与其说这是个bug，不如说这是个feature。我个人喜欢这样，可以最大限度的避免意外唤醒（特别是不小心碰到一下）。在Windows下我甚至找不到一个完美的永久禁用USB设备唤醒的方法。如果你真的需要通过键盘/鼠标/USB唤醒，自行研究ACPI Patch吧。
+
 # Features
 ## 电源/机器本身功能相关（这也是Tweak的重点）
 
